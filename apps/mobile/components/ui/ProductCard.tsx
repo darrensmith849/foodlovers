@@ -168,14 +168,14 @@ const styles = StyleSheet.create({
   tierText: { fontSize: 9, fontWeight: '700', letterSpacing: 0.3 },
   addBtn: {
     backgroundColor: palette.deepAubergine,
-    borderRadius: 12,
-    paddingVertical: 10,
+    borderRadius: 10,
+    paddingVertical: 9,
     alignItems: 'center',
   },
   addBtnText: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '700',
     color: palette.yuzuLime,
-    letterSpacing: 0.2,
+    letterSpacing: 0.3,
   },
 })
