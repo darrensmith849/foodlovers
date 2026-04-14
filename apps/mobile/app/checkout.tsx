@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { StyleSheet, ScrollView, View, Text, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { formatPrice } from '@/hooks/useFormatPrice'
 import { useCartStore } from '@/stores/useCartStore'
 import { useUserStore } from '@/stores/useUserStore'
@@ -135,27 +135,27 @@ export default function CheckoutScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: brand.white },
+  container: { flex: 1, backgroundColor: palette.oatCream },
   scroll: { paddingHorizontal: 20 },
   section: { marginBottom: 24 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: brand.grey900, marginBottom: 8 },
-  card: { backgroundColor: brand.grey50, borderRadius: 14, padding: 16, borderWidth: 1, borderColor: brand.grey200 },
-  addressLine: { fontSize: 15, fontWeight: '600', color: brand.grey900 },
-  addressCity: { fontSize: 13, color: brand.grey500, marginTop: 2 },
-  summaryLine: { fontSize: 15, fontWeight: '600', color: brand.grey900 },
-  impactText: { fontSize: 14, color: brand.grey500, lineHeight: 20 },
-  overText: { fontSize: 13, color: brand.red, marginTop: 8, fontWeight: '500' },
-  paymentText: { fontSize: 15, color: brand.grey700 },
-  bottom: { paddingHorizontal: 20, paddingBottom: 20, paddingTop: 12, borderTopWidth: 1, borderTopColor: brand.grey200 },
-  confirmBtn: { backgroundColor: brand.green, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
-  confirmBtnText: { fontSize: 17, fontWeight: '700', color: brand.white },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: palette.textDark, marginBottom: 8 },
+  card: { backgroundColor: palette.surface, borderRadius: 14, padding: 16, borderWidth: 1, borderColor: palette.border },
+  addressLine: { fontSize: 15, fontWeight: '600', color: palette.textDark },
+  addressCity: { fontSize: 13, color: palette.textSecondary, marginTop: 2 },
+  summaryLine: { fontSize: 15, fontWeight: '600', color: palette.textDark },
+  impactText: { fontSize: 14, color: palette.textSecondary, lineHeight: 20 },
+  overText: { fontSize: 13, color: palette.warning, marginTop: 8, fontWeight: '500' },
+  paymentText: { fontSize: 15, color: '#4A3F50' },
+  bottom: { paddingHorizontal: 20, paddingBottom: 20, paddingTop: 12, borderTopWidth: 1, borderTopColor: palette.border },
+  confirmBtn: { backgroundColor: palette.leafTeal, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
+  confirmBtnText: { fontSize: 17, fontWeight: '700', color: palette.surfaceElevated },
   confirmation: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
   confirmEmoji: { fontSize: 64, marginBottom: 16 },
-  confirmTitle: { fontSize: 24, fontWeight: '700', color: brand.grey900, marginBottom: 8 },
-  confirmText: { fontSize: 15, color: brand.grey500, textAlign: 'center', lineHeight: 22, marginBottom: 24 },
-  confirmCard: { backgroundColor: brand.greenLight, borderRadius: 14, padding: 20, alignItems: 'center', marginBottom: 24, width: '100%' },
-  confirmLabel: { fontSize: 13, color: brand.green, marginBottom: 4 },
-  confirmValue: { fontSize: 28, fontWeight: '800', color: brand.green },
-  doneBtn: { backgroundColor: brand.green, borderRadius: 14, paddingVertical: 14, paddingHorizontal: 32 },
-  doneBtnText: { fontSize: 16, fontWeight: '700', color: brand.white },
+  confirmTitle: { fontSize: 24, fontWeight: '700', color: palette.textDark, marginBottom: 8 },
+  confirmText: { fontSize: 15, color: palette.textSecondary, textAlign: 'center', lineHeight: 22, marginBottom: 24 },
+  confirmCard: { backgroundColor: palette.positiveLight, borderRadius: 14, padding: 20, alignItems: 'center', marginBottom: 24, width: '100%' },
+  confirmLabel: { fontSize: 13, color: palette.leafTeal, marginBottom: 4 },
+  confirmValue: { fontSize: 28, fontWeight: '800', color: palette.leafTeal },
+  doneBtn: { backgroundColor: palette.leafTeal, borderRadius: 14, paddingVertical: 14, paddingHorizontal: 32 },
+  doneBtnText: { fontSize: 16, fontWeight: '700', color: palette.surfaceElevated },
 })

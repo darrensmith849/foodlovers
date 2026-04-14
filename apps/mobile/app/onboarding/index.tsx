@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 
 export default function WelcomeScreen() {
   return (
@@ -38,17 +38,17 @@ function Feature({ icon, text }: { icon: string; text: string }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: brand.white },
+  container: { flex: 1, backgroundColor: palette.oatCream },
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
   emoji: { fontSize: 64, marginBottom: 16 },
-  title: { fontSize: 36, fontWeight: '800', color: brand.grey900, letterSpacing: -1, marginBottom: 8 },
-  subtitle: { fontSize: 18, color: brand.green, fontWeight: '600', marginBottom: 16 },
-  desc: { fontSize: 15, color: brand.grey500, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
+  title: { fontSize: 36, fontWeight: '800', color: palette.textDark, letterSpacing: -1, marginBottom: 8 },
+  subtitle: { fontSize: 18, color: palette.leafTeal, fontWeight: '600', marginBottom: 16 },
+  desc: { fontSize: 15, color: palette.textSecondary, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
   features: { width: '100%', gap: 16 },
   feature: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   featureIcon: { fontSize: 24 },
-  featureText: { fontSize: 15, color: brand.grey700, fontWeight: '500' },
+  featureText: { fontSize: 15, color: '#4A3F50', fontWeight: '500' },
   bottom: { paddingHorizontal: 24, paddingBottom: 16 },
-  primaryBtn: { backgroundColor: brand.green, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
-  primaryBtnText: { fontSize: 17, fontWeight: '700', color: brand.white },
+  primaryBtn: { backgroundColor: palette.leafTeal, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
+  primaryBtnText: { fontSize: 17, fontWeight: '700', color: palette.surfaceElevated },
 })

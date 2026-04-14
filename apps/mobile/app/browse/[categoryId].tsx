@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLocalSearchParams } from 'expo-router'
 import { PRODUCTS, BUDGET_CATEGORIES } from '@foodlovers/mock-data'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { ScreenHeader } from '@/components/ui/ScreenHeader'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { CartFab } from '@/components/ui/CartFab'
@@ -35,10 +35,10 @@ export default function BrowseCategoryScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: brand.white },
+  container: { flex: 1, backgroundColor: palette.oatCream },
   scroll: { paddingHorizontal: 20 },
-  count: { fontSize: 13, color: brand.grey400, marginBottom: 16 },
+  count: { fontSize: 13, color: palette.textSecondary, marginBottom: 16 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -6 },
   empty: { alignItems: 'center', paddingTop: 60 },
-  emptyText: { fontSize: 15, color: brand.grey400 },
+  emptyText: { fontSize: 15, color: palette.textSecondary },
 })

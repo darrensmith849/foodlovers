@@ -1,6 +1,6 @@
 import { Link, Stack } from 'expo-router'
 import { StyleSheet, View, Text } from 'react-native'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 
 export default function NotFoundScreen() {
   return (
@@ -18,9 +18,9 @@ export default function NotFoundScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20, backgroundColor: brand.white },
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20, backgroundColor: palette.oatCream },
   emoji: { fontSize: 48, marginBottom: 16 },
-  title: { fontSize: 18, fontWeight: '600', color: brand.grey900, marginBottom: 12 },
-  link: { paddingVertical: 12, paddingHorizontal: 20, backgroundColor: brand.greenLight, borderRadius: 10 },
-  linkText: { fontSize: 15, fontWeight: '600', color: brand.green },
+  title: { fontSize: 18, fontWeight: '600', color: palette.textDark, marginBottom: 12 },
+  link: { paddingVertical: 12, paddingHorizontal: 20, backgroundColor: palette.positiveLight, borderRadius: 10 },
+  linkText: { fontSize: 15, fontWeight: '600', color: palette.leafTeal },
 })

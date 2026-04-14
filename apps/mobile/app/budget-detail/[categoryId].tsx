@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLocalSearchParams } from 'expo-router'
 import { BUDGET_CATEGORIES, PRODUCTS } from '@foodlovers/mock-data'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { formatPrice } from '@/hooks/useFormatPrice'
 import { useBudgetStore } from '@/stores/useBudgetStore'
 import { useUserStore } from '@/stores/useUserStore'
@@ -30,7 +30,7 @@ export default function CategoryDetailScreen() {
     <SafeAreaView style={styles.container} edges={['top']}>
       <ScreenHeader title={category?.name ?? 'Category'} showBack />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
-        <View style={[styles.heroCard, { backgroundColor: (category?.color ?? brand.grey400) + '12' }]}>
+        <View style={[styles.heroCard, { backgroundColor: (category?.color ?? palette.textSecondary) + '12' }]}>
           <Text style={[styles.heroAmount, { color: category?.color }]}>{formatPrice(thisMonthSpend)}</Text>
           <Text style={styles.heroLabel}>spent this month · {thisMonthPct}% of total</Text>
         </View>
@@ -46,14 +46,14 @@ export default function CategoryDetailScreen() {
           </View>
           <View style={styles.compItem}>
             <Text style={styles.compLabel}>Trend</Text>
-            <Text style={[styles.compValue, { color: thisMonthPct > lastMonthPct ? brand.red : brand.green }]}>
+            <Text style={[styles.compValue, { color: thisMonthPct > lastMonthPct ? palette.warning : palette.leafTeal }]}>
               {thisMonthPct > lastMonthPct ? '↑' : thisMonthPct < lastMonthPct ? '↓' : '→'}
             </Text>
           </View>
         </View>
 
         {thisMonthPct > lastMonthPct + 5 && (
-          <View style={[styles.tipCard, { backgroundColor: brand.amberLight, borderLeftColor: brand.amber }]}>
+          <View style={[styles.tipCard, { backgroundColor: palette.cautionLight, borderLeftColor: palette.caution }]}>
             <Text style={styles.tipText}>
               You're spending more on {category?.name} than last month. Consider swapping some items for essentials.
             </Text>
@@ -74,17 +74,17 @@ export default function CategoryDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: brand.white },
+  container: { flex: 1, backgroundColor: palette.oatCream },
   scroll: { paddingHorizontal: 20 },
   heroCard: { borderRadius: 16, padding: 24, alignItems: 'center', marginBottom: 20 },
   heroAmount: { fontSize: 32, fontWeight: '800', marginBottom: 4 },
-  heroLabel: { fontSize: 13, color: brand.grey500 },
+  heroLabel: { fontSize: 13, color: palette.textSecondary },
   compRow: { flexDirection: 'row', marginBottom: 20 },
   compItem: { flex: 1, alignItems: 'center' },
-  compLabel: { fontSize: 12, color: brand.grey400, marginBottom: 4 },
-  compValue: { fontSize: 20, fontWeight: '700', color: brand.grey900 },
+  compLabel: { fontSize: 12, color: palette.textSecondary, marginBottom: 4 },
+  compValue: { fontSize: 20, fontWeight: '700', color: palette.textDark },
   tipCard: { borderRadius: 10, padding: 14, marginBottom: 20, borderLeftWidth: 4 },
-  tipText: { fontSize: 14, color: brand.grey700, lineHeight: 20 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: brand.grey900, marginBottom: 12 },
+  tipText: { fontSize: 14, color: '#4A3F50', lineHeight: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: palette.textDark, marginBottom: 12 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -6 },
 })
