@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { palette } from '@/constants/Colors'
@@ -14,7 +14,7 @@ export function CartFab() {
   if (itemCount === 0) return null
 
   return (
-    <Pressable style={styles.fab} onPress={() => router.push('/cart')}>
+    <TouchableOpacity style={styles.fab} onPress={() => router.push('/cart')} activeOpacity={0.85}>
       <FontAwesome name="shopping-cart" size={16} color={palette.blackFig} />
       <View style={styles.info}>
         <Text style={styles.count}>{itemCount} items</Text>
@@ -23,7 +23,7 @@ export function CartFab() {
       <View style={styles.arrow}>
         <FontAwesome name="arrow-right" size={14} color={palette.blackFig} />
       </View>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 

@@ -1,132 +1,181 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
 import type { Product } from '@foodlovers/types'
 import { palette } from '@/constants/Colors'
 import { formatPrice } from '@/hooks/useFormatPrice'
 import { useCartStore } from '@/stores/useCartStore'
 
-const CATEGORY_BG: Record<string, string> = {
-  'dairy-eggs': '#E8DDD4',
-  'fresh-produce': '#D4E8DC',
-  'meat-poultry': '#E8D4D0',
-  'bakery': '#E8E0D0',
-  'beverages': '#D4DEE8',
-  'snacks-confectionery': '#E4D4E8',
-  'cleaning-household': '#D4E4E8',
-  'personal-care': '#E0D4E8',
-  'pantry-canned': '#E4DED0',
-  'breakfast-cereals': '#E8E4D0',
-  'condiments-sauces': '#E8DCD4',
-  'frozen': '#D4E0E8',
-  'baby': '#E8DCD0',
+const CATEGORY_EMOJI: Record<string, string> = {
+  'dairy-eggs': '🥛',
+  'fresh-produce': '🥬',
+  'meat-poultry': '🍗',
+  'bakery': '🍞',
+  'beverages': '🥤',
+  'snacks-confectionery': '🍿',
+  'cleaning-household': '🧹',
+  'personal-care': '🧴',
+  'pantry-canned': '🥫',
+  'breakfast-cereals': '🥣',
+  'condiments-sauces': '🫙',
+  'frozen': '🧊',
+  'baby': '🍼',
 }
 
-function essentialityColor(tier: string): string {
+const CATEGORY_GRADIENT: Record<string, [string, string]> = {
+  'dairy-eggs': ['#F5EFE8', '#EDE4D6'],
+  'fresh-produce': ['#E8F5EC', '#D4ECDA'],
+  'meat-poultry': ['#F5EBE8', '#ECDAD4'],
+  'bakery': ['#F5F0E8', '#ECE4D4'],
+  'beverages': ['#E8EDF5', '#D4DEEC'],
+  'snacks-confectionery': ['#F2E8F5', '#E4D4EC'],
+  'cleaning-household': ['#E8F2F5', '#D4E8EC'],
+  'personal-care': ['#EEE8F5', '#E0D4EC'],
+  'pantry-canned': ['#F2EEE8', '#E8E0D4'],
+  'breakfast-cereals': ['#F5F2E8', '#ECE8D4'],
+  'condiments-sauces': ['#F5ECE8', '#ECDCD4'],
+  'frozen': ['#E8EEF5', '#D4E4EC'],
+  'baby': ['#F5ECE8', '#ECDCD4'],
+}
+
+function tierColor(tier: string): string {
   return tier === 'ESSENTIAL' ? palette.leafTeal : tier === 'SEMI_ESSENTIAL' ? palette.caution : palette.papayaCoral
 }
 
-function essentialityLabel(tier: string): string {
+function tierLabel(tier: string): string {
   return tier === 'ESSENTIAL' ? 'Essential' : tier === 'SEMI_ESSENTIAL' ? 'Semi' : 'Treat'
 }
 
-function productInitials(name: string): string {
-  return name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase()
-}
-
-export function ProductCard({ product, compact }: { product: Product; compact?: boolean }) {
+export function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((s) => s.addItem)
-  const bg = CATEGORY_BG[product.retailCategoryId] ?? '#E8E2D9'
+  const items = useCartStore((s) => s.items)
+  const inCart = items.find((i) => i.productId === product.id)
+  const bg = CATEGORY_GRADIENT[product.retailCategoryId]?.[0] ?? '#F0EBE3'
+  const emoji = CATEGORY_EMOJI[product.retailCategoryId] ?? '🛒'
+  const tc = tierColor(product.essentialityTier)
 
   return (
-    <Pressable
-      style={compact ? styles.compactCard : styles.card}
-      onPress={() => router.push(`/product/${product.id}`)}
-    >
-      <View style={[compact ? styles.compactImage : styles.imagePlaceholder, { backgroundColor: bg }]}>
-        <Text style={[compact ? styles.compactInitials : styles.initials, { color: palette.deepAubergine + '60' }]}>
-          {productInitials(product.name)}
-        </Text>
-      </View>
+    <View style={styles.card}>
+      <Pressable
+        style={[styles.imageArea, { backgroundColor: bg }]}
+        onPress={() => router.push(`/product/${product.id}`)}
+      >
+        <Text style={styles.emoji}>{emoji}</Text>
+        {inCart && (
+          <View style={styles.cartQty}>
+            <Text style={styles.cartQtyText}>{inCart.quantity}</Text>
+          </View>
+        )}
+      </Pressable>
       <View style={styles.info}>
-        <Text style={styles.name} numberOfLines={2}>{product.name}</Text>
-        <Text style={styles.unit}>{product.unit}</Text>
-        <View style={styles.bottom}>
+        <Pressable onPress={() => router.push(`/product/${product.id}`)}>
+          <Text style={styles.name} numberOfLines={2}>{product.name}</Text>
+          <Text style={styles.unit}>{product.unit}</Text>
+        </Pressable>
+        <View style={styles.priceRow}>
           <Text style={styles.price}>{formatPrice(product.price)}</Text>
-          <View style={[styles.badge, { backgroundColor: essentialityColor(product.essentialityTier) + '18' }]}>
-            <Text style={[styles.badgeText, { color: essentialityColor(product.essentialityTier) }]}>
-              {essentialityLabel(product.essentialityTier)}
-            </Text>
+          <View style={[styles.tierBadge, { backgroundColor: tc + '15' }]}>
+            <View style={[styles.tierDot, { backgroundColor: tc }]} />
+            <Text style={[styles.tierText, { color: tc }]}>{tierLabel(product.essentialityTier)}</Text>
           </View>
         </View>
-        <Pressable
+        <TouchableOpacity
           style={styles.addBtn}
-          onPress={(e) => { e.stopPropagation(); addItem(product.id) }}
+          onPress={() => addItem(product.id)}
+          activeOpacity={0.7}
         >
-          <Text style={styles.addBtnText}>+ Add</Text>
-        </Pressable>
+          <Text style={styles.addBtnText}>{inCart ? `+ Add more` : '+ Add to cart'}</Text>
+        </TouchableOpacity>
       </View>
-    </Pressable>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   card: {
     width: '47%',
-    backgroundColor: palette.surfaceCard,
-    borderRadius: 16,
+    backgroundColor: palette.surfaceElevated,
+    borderRadius: 18,
     marginHorizontal: '1.5%',
-    marginBottom: 14,
+    marginBottom: 16,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: palette.border + '80',
     shadowColor: palette.blackFig,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 3,
   },
-  compactCard: {
-    width: 150,
-    backgroundColor: palette.surfaceCard,
-    borderRadius: 16,
-    marginRight: 12,
-    overflow: 'hidden',
-    shadowColor: palette.blackFig,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  imagePlaceholder: {
-    height: 110,
+  imageArea: {
+    height: 120,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
   },
-  compactImage: {
-    height: 85,
-    alignItems: 'center',
-    justifyContent: 'center',
+  emoji: {
+    fontSize: 48,
   },
-  initials: {
-    fontSize: 28,
-    fontWeight: '700',
-    letterSpacing: 1,
-  },
-  compactInitials: {
-    fontSize: 22,
-    fontWeight: '700',
-    letterSpacing: 1,
-  },
-  info: { padding: 12 },
-  name: { fontSize: 13, fontWeight: '600', color: palette.textDark, marginBottom: 2, lineHeight: 17 },
-  unit: { fontSize: 11, color: palette.textSecondary, marginBottom: 8 },
-  bottom: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  price: { fontSize: 16, fontWeight: '700', color: palette.textDark },
-  badge: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6 },
-  badgeText: { fontSize: 9, fontWeight: '600' },
-  addBtn: {
+  cartQty: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
     backgroundColor: palette.yuzuLime,
-    borderRadius: 10,
-    paddingVertical: 8,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cartQtyText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: palette.blackFig,
+  },
+  info: { padding: 14 },
+  name: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: palette.textDark,
+    marginBottom: 2,
+    lineHeight: 19,
+  },
+  unit: {
+    fontSize: 11,
+    color: palette.textSecondary,
+    marginBottom: 10,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: palette.textDark,
+    letterSpacing: -0.3,
+  },
+  tierBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 6,
+    gap: 4,
+  },
+  tierDot: { width: 5, height: 5, borderRadius: 3 },
+  tierText: { fontSize: 9, fontWeight: '700', letterSpacing: 0.3 },
+  addBtn: {
+    backgroundColor: palette.deepAubergine,
+    borderRadius: 12,
+    paddingVertical: 10,
     alignItems: 'center',
   },
-  addBtnText: { fontSize: 13, fontWeight: '700', color: palette.blackFig },
+  addBtnText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: palette.yuzuLime,
+    letterSpacing: 0.2,
+  },
 })
