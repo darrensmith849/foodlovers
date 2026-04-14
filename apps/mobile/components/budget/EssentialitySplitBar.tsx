@@ -12,19 +12,19 @@ export function EssentialitySplitBar({ essentialPct, semiPct, discretionaryPct }
     <View>
       <View style={styles.track}>
         {essentialPct > 0 && (
-          <View style={[styles.seg, { width: `${essentialPct}%`, backgroundColor: palette.leafTeal, borderTopLeftRadius: 4, borderBottomLeftRadius: 4 }]} />
+          <View style={[styles.seg, { width: `${essentialPct}%`, backgroundColor: palette.positive, borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }]} />
         )}
         {semiPct > 0 && (
           <View style={[styles.seg, { width: `${semiPct}%`, backgroundColor: palette.caution }]} />
         )}
         {discretionaryPct > 0 && (
-          <View style={[styles.seg, { width: `${discretionaryPct}%`, backgroundColor: palette.papayaCoral, borderTopRightRadius: 4, borderBottomRightRadius: 4 }]} />
+          <View style={[styles.seg, { width: `${discretionaryPct}%`, backgroundColor: palette.warning, borderTopRightRadius: 3, borderBottomRightRadius: 3 }]} />
         )}
       </View>
       <View style={styles.legend}>
-        <LegendItem color={palette.leafTeal} label={`Essential ${essentialPct}%`} />
+        <LegendItem color={palette.positive} label={`Essential ${essentialPct}%`} />
         <LegendItem color={palette.caution} label={`Semi ${semiPct}%`} />
-        <LegendItem color={palette.papayaCoral} label={`Treats ${discretionaryPct}%`} />
+        <LegendItem color={palette.warning} label={`Treats ${discretionaryPct}%`} />
       </View>
     </View>
   )
@@ -40,10 +40,10 @@ function LegendItem({ color, label }: { color: string; label: string }) {
 }
 
 const styles = StyleSheet.create({
-  track: { flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden', marginBottom: 10 },
-  seg: { height: 8 },
+  track: { flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginBottom: 10 },
+  seg: { height: 6 },
   legend: { flexDirection: 'row', justifyContent: 'space-between' },
   legendItem: { flexDirection: 'row', alignItems: 'center' },
-  dot: { width: 7, height: 7, borderRadius: 4, marginRight: 4 },
-  legendText: { fontSize: 11, color: palette.textSecondary },
+  dot: { width: 6, height: 6, borderRadius: 3, marginRight: 4 },
+  legendText: { fontSize: 11, color: palette.textMuted },
 })

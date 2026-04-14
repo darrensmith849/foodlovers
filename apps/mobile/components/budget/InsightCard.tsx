@@ -3,8 +3,8 @@ import type { BudgetWarning } from '@foodlovers/types'
 import { palette } from '@/constants/Colors'
 
 export function InsightCard({ warning }: { warning: BudgetWarning }) {
-  const bg = warning.severity === 'warning' ? palette.warningLight : warning.severity === 'caution' ? palette.cautionLight : palette.surfaceCard
-  const accent = warning.severity === 'warning' ? palette.warning : warning.severity === 'caution' ? palette.caution : palette.leafTeal
+  const bg = warning.severity === 'warning' ? palette.warningBg : warning.severity === 'caution' ? palette.cautionBg : palette.bgElevated
+  const accent = warning.severity === 'warning' ? palette.warning : warning.severity === 'caution' ? palette.caution : palette.accentTeal
 
   return (
     <View style={[styles.card, { backgroundColor: bg, borderLeftColor: accent }]}>
@@ -14,6 +14,6 @@ export function InsightCard({ warning }: { warning: BudgetWarning }) {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 12, padding: 14, marginBottom: 10, borderLeftWidth: 3 },
-  text: { fontSize: 14, color: palette.textDark, lineHeight: 20 },
+  card: { borderRadius: 10, padding: 14, marginBottom: 10, borderLeftWidth: 3, borderWidth: 1, borderColor: palette.lineSubtle },
+  text: { fontSize: 13, color: palette.textSecondary, lineHeight: 19 },
 })

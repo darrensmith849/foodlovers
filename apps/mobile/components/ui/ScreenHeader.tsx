@@ -16,7 +16,7 @@ export function ScreenHeader({ title, subtitle, showBack, rightAction }: ScreenH
       <View style={styles.left}>
         {showBack && (
           <Pressable onPress={() => router.back()} style={styles.backBtn}>
-            <FontAwesome name="chevron-left" size={16} color={palette.textDark} />
+            <FontAwesome name="chevron-left" size={16} color={palette.textSecondary} />
           </Pressable>
         )}
         <View>
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
   },
   left: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   backBtn: { padding: 8, marginLeft: -8 },
-  title: { fontSize: 22, fontWeight: '700', color: palette.textDark, letterSpacing: -0.3 },
-  subtitle: { fontSize: 12, color: palette.textSecondary, marginBottom: 1 },
+  title: { fontSize: 20, fontWeight: '700', color: palette.textPrimary, letterSpacing: -0.3 },
+  subtitle: { fontSize: 11, color: palette.textMuted, marginBottom: 1 },
 })

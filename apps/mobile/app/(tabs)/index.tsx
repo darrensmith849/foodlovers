@@ -32,12 +32,8 @@ function getGreeting(): string {
 export default function ShopScreen() {
   const items = useCartStore((s) => s.items)
   const name = useUserStore((s) => s.name)
-  const monthlyBudget = useUserStore((s) => s.monthlyBudget)
-  const currentSpend = useBudgetStore((s) => s.currentMonthSpend)
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
   const warnings = useMemo(() => useCartStore.getState().getWarnings(), [items])
-  const remaining = monthlyBudget - currentSpend
-  const utilPct = monthlyBudget > 0 ? Math.round((currentSpend / monthlyBudget) * 100) : 0
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -52,28 +48,15 @@ export default function ShopScreen() {
             style={[styles.cartBtn, itemCount > 0 && styles.cartBtnActive]}
             onPress={() => router.push('/cart')}
           >
-            <FontAwesome name="shopping-cart" size={16} color={itemCount > 0 ? palette.blackFig : palette.textSecondary} />
+            <FontAwesome name="shopping-cart" size={16} color={itemCount > 0 ? palette.bgApp : palette.textMuted} />
             {itemCount > 0 && <Text style={styles.cartCount}>{itemCount}</Text>}
           </Pressable>
         </View>
 
-        {/* Budget Hero */}
-        <Pressable style={styles.budgetHero} onPress={() => router.push('/(tabs)/budget')}>
-          <View style={styles.budgetHeroTop}>
-            <View>
-              <Text style={styles.budgetLabel}>Monthly budget</Text>
-              <Text style={styles.budgetRemaining}>{formatPrice(remaining)}</Text>
-              <Text style={styles.budgetSub}>remaining of {formatPrice(monthlyBudget)}</Text>
-            </View>
-            <View style={styles.budgetRing}>
-              <Text style={styles.budgetPct}>{utilPct}%</Text>
-              <Text style={styles.budgetRingLabel}>used</Text>
-            </View>
-          </View>
-          <View style={styles.budgetBar}>
-            <View style={[styles.budgetBarFill, { width: `${Math.min(100, utilPct)}%`, backgroundColor: utilPct > 80 ? palette.warning : palette.yuzuLime }]} />
-          </View>
-        </Pressable>
+        {/* Budget Summary */}
+        <View style={styles.section}>
+          <BudgetSummaryCard />
+        </View>
 
         {/* Insights */}
         {warnings.length > 0 && (
@@ -97,7 +80,7 @@ export default function ShopScreen() {
                 style={styles.categoryCard}
                 onPress={() => router.push(`/browse/${cat.id}`)}
               >
-                <View style={[styles.categoryIcon, { backgroundColor: cat.color + '18' }]}>
+                <View style={styles.categoryIcon}>
                   <Text style={styles.categoryEmoji}>{CATEGORY_EMOJI[cat.id] ?? '🛒'}</Text>
                 </View>
                 <Text style={styles.categoryName}>{cat.name}</Text>
@@ -126,98 +109,62 @@ export default function ShopScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: palette.oatCream },
-  scroll: { paddingHorizontal: 20 },
+  container: { flex: 1, backgroundColor: palette.bgApp },
+  scroll: { paddingHorizontal: 16 },
 
-  // Header
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 16,
-    paddingBottom: 20,
+    paddingTop: 12,
+    paddingBottom: 16,
   },
-  greeting: { fontSize: 13, color: palette.textSecondary, marginBottom: 2 },
-  headerTitle: { fontSize: 26, fontWeight: '800', color: palette.textDark, letterSpacing: -0.6 },
+  greeting: { fontSize: 13, color: palette.textMuted, marginBottom: 2 },
+  headerTitle: { fontSize: 24, fontWeight: '800', color: palette.textPrimary, letterSpacing: -0.5 },
   cartBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: palette.surfaceCard,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: palette.bgElevated,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: palette.lineSubtle,
     alignItems: 'center',
     justifyContent: 'center',
   },
   cartBtnActive: {
-    backgroundColor: palette.yuzuLime,
-    borderColor: palette.yuzuLime,
+    backgroundColor: palette.accentTeal,
+    borderColor: palette.accentTeal,
     flexDirection: 'row',
     gap: 4,
     width: 'auto',
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
   },
-  cartCount: { fontSize: 14, fontWeight: '800', color: palette.blackFig },
+  cartCount: { fontSize: 13, fontWeight: '800', color: palette.bgApp },
 
-  // Budget Hero
-  budgetHero: {
-    backgroundColor: palette.deepAubergine,
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 22,
-  },
-  budgetHeroTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  budgetLabel: { fontSize: 10, color: palette.textMuted, marginBottom: 4, letterSpacing: 1, textTransform: 'uppercase' },
-  budgetRemaining: { fontSize: 26, fontWeight: '800', color: palette.textPrimary, letterSpacing: -0.3 },
-  budgetSub: { fontSize: 12, color: palette.textMuted, marginTop: 2 },
-  budgetRing: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
-    borderWidth: 2.5,
-    borderColor: palette.yuzuLime + '60',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  budgetPct: { fontSize: 15, fontWeight: '800', color: palette.yuzuLime },
-  budgetRingLabel: { fontSize: 8, color: palette.textMuted, marginTop: -1 },
-  budgetBar: {
-    height: 4,
-    backgroundColor: palette.blackFig,
-    borderRadius: 2,
-    overflow: 'hidden',
-  },
-  budgetBarFill: { height: 4, borderRadius: 2 },
+  section: { marginBottom: 22 },
+  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 },
+  sectionTitle: { fontSize: 16, fontWeight: '700', color: palette.textPrimary, letterSpacing: -0.2 },
+  sectionLink: { fontSize: 12, color: palette.accentTeal, fontWeight: '600' },
 
-  // Sections
-  section: { marginBottom: 24 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: palette.textDark, letterSpacing: -0.2 },
-  sectionLink: { fontSize: 12, color: palette.leafTeal, fontWeight: '600' },
-
-  // Categories
-  categoryScroll: { marginHorizontal: -20, paddingHorizontal: 20 },
+  categoryScroll: { marginHorizontal: -16, paddingHorizontal: 16 },
   categoryCard: {
     alignItems: 'center',
-    marginRight: 14,
-    width: 68,
+    marginRight: 12,
+    width: 64,
   },
   categoryIcon: {
-    width: 52,
-    height: 52,
-    borderRadius: 16,
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: palette.bgElevated,
+    borderWidth: 1,
+    borderColor: palette.lineSubtle,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 6,
   },
-  categoryEmoji: { fontSize: 24 },
-  categoryName: { fontSize: 10, color: palette.textDark, fontWeight: '500', textAlign: 'center', lineHeight: 13 },
+  categoryEmoji: { fontSize: 22 },
+  categoryName: { fontSize: 10, color: palette.textMuted, fontWeight: '500', textAlign: 'center', lineHeight: 13 },
 
-  // Products
   productGrid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -6 },
 })

@@ -24,7 +24,7 @@ export function BudgetSummaryCard() {
             styles.barFill,
             {
               width: `${Math.min(100, utilisation)}%`,
-              backgroundColor: utilisation > 80 ? palette.warning : palette.yuzuLime,
+              backgroundColor: utilisation > 80 ? palette.warning : palette.accentTeal,
             },
           ]}
         />
@@ -39,15 +39,17 @@ export function BudgetSummaryCard() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: palette.deepAubergine,
-    borderRadius: 20,
-    padding: 22,
+    backgroundColor: palette.bgElevated,
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: palette.lineSubtle,
   },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 },
-  label: { fontSize: 13, color: palette.textMuted, fontWeight: '500', letterSpacing: 0.3 },
-  amounts: { fontSize: 13, color: palette.textMuted },
-  barTrack: { height: 6, backgroundColor: palette.blackFig, borderRadius: 3, marginBottom: 12, overflow: 'hidden' },
-  barFill: { height: 6, borderRadius: 3 },
+  label: { fontSize: 12, color: palette.textMuted, fontWeight: '500', letterSpacing: 0.5, textTransform: 'uppercase' },
+  amounts: { fontSize: 12, color: palette.textMuted },
+  barTrack: { height: 4, backgroundColor: palette.bgApp, borderRadius: 2, marginBottom: 12, overflow: 'hidden' },
+  barFill: { height: 4, borderRadius: 2 },
   remaining: { fontSize: 22, fontWeight: '700', color: palette.textPrimary },
-  hint: { fontSize: 12, color: palette.textMuted, marginTop: 6 },
+  hint: { fontSize: 12, color: palette.textMuted, marginTop: 4 },
 })

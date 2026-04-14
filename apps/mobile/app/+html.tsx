@@ -20,7 +20,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
 
 const appStyles = `
   body {
-    background-color: #F4EFE7;
+    background-color: #080A0D;
     margin: 0;
     padding: 0;
     display: flex;
@@ -36,17 +36,7 @@ const appStyles = `
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-    background-color: #F4EFE7;
-    box-shadow: 0 0 80px rgba(22, 18, 24, 0.06);
-  }
-  @media (min-width: 431px) {
-    body {
-      background-color: #161218;
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    body {
-      background-color: #161218;
-    }
+    background-color: #0F1115;
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
   }
 `

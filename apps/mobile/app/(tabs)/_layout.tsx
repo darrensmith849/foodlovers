@@ -12,11 +12,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: palette.yuzuLime,
+        tabBarActiveTintColor: palette.accentTeal,
         tabBarInactiveTintColor: palette.textMuted,
         tabBarStyle: {
-          backgroundColor: palette.blackFig,
-          borderTopWidth: 0,
+          backgroundColor: palette.bgSurface,
+          borderTopWidth: 1,
+          borderTopColor: palette.lineSubtle,
           paddingTop: 8,
           paddingBottom: Platform.OS === 'web' ? 8 : 20,
           height: Platform.OS === 'web' ? 64 : 80,
