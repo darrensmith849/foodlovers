@@ -1,5 +1,7 @@
 import { create } from 'zustand'
-import type { Order, OrderStatus } from '@foodlovers/types'
+import { persist, createJSONStorage } from 'zustand/middleware'
+import type { Order } from '@foodlovers/types'
+import { mmkvStorage } from './storage'
 
 interface OrderState {
   orders: Order[]
@@ -73,8 +75,16 @@ const MOCK_ORDERS: Order[] = [
   },
 ]
 
-export const useOrderStore = create<OrderState>((set, get) => ({
-  orders: MOCK_ORDERS,
-  addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
-  getOrder: (id) => get().orders.find((o) => o.id === id),
-}))
+export const useOrderStore = create<OrderState>()(
+  persist(
+    (set, get) => ({
+      orders: MOCK_ORDERS,
+      addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
+      getOrder: (id) => get().orders.find((o) => o.id === id),
+    }),
+    {
+      name: 'order-store',
+      storage: createJSONStorage(() => mmkvStorage),
+    }
+  )
+)
