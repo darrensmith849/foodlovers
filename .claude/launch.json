@@ -4,9 +4,8 @@
     {
       "name": "mobile",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "apps/mobile", "exec", "expo", "start", "--web"],
-      "port": 8081,
-      "autoPort": true
+      "runtimeArgs": ["--dir", "apps/mobile", "exec", "expo", "start", "--web", "--port", "8082"],
+      "port": 8082
     }
   ]
 }
