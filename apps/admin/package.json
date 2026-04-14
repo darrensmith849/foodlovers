@@ -1,0 +1,6 @@
+{
+  "name": "@foodlovers/admin",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Admin dashboard — Next.js (not scaffolded yet)"
+}

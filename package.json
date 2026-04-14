@@ -1,0 +1,17 @@
+{
+  "name": "foodlovers",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "biome format --write .",
+    "check": "biome check --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1",
+    "turbo": "^2",
+    "typescript": "^5.7"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
