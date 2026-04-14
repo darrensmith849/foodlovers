@@ -1,14 +1,14 @@
 import type { RetailCategory, BudgetCategory } from '@foodlovers/types'
 
 export const BUDGET_CATEGORIES: BudgetCategory[] = [
-  { id: 'fresh-food', name: 'Fresh Food', color: '#22C55E', iconName: 'leaf' },
-  { id: 'pantry-staples', name: 'Pantry Staples', color: '#F59E0B', iconName: 'archive' },
-  { id: 'proteins', name: 'Proteins', color: '#EF4444', iconName: 'drumstick-bite' },
-  { id: 'beverages', name: 'Beverages', color: '#3B82F6', iconName: 'coffee' },
-  { id: 'snacks-treats', name: 'Snacks & Treats', color: '#A855F7', iconName: 'cookie' },
-  { id: 'household', name: 'Household', color: '#06B6D4', iconName: 'home' },
-  { id: 'personal-care', name: 'Personal Care', color: '#EC4899', iconName: 'heart' },
-  { id: 'baby-kids', name: 'Baby & Kids', color: '#F97316', iconName: 'baby' },
+  { id: 'fresh-food', name: 'Fresh Food', color: '#46B39D', iconName: 'leaf' },
+  { id: 'pantry-staples', name: 'Pantry Staples', color: '#B8A47C', iconName: 'archive' },
+  { id: 'proteins', name: 'Proteins', color: '#C4785C', iconName: 'drumstick-bite' },
+  { id: 'beverages', name: 'Beverages', color: '#6B8DAE', iconName: 'coffee' },
+  { id: 'snacks-treats', name: 'Snacks & Treats', color: '#C27BA0', iconName: 'cookie' },
+  { id: 'household', name: 'Household', color: '#7B9EA8', iconName: 'home' },
+  { id: 'personal-care', name: 'Personal Care', color: '#A88DB5', iconName: 'heart' },
+  { id: 'baby-kids', name: 'Baby & Kids', color: '#D4A574', iconName: 'baby' },
 ]
 
 export const RETAIL_CATEGORIES: RetailCategory[] = [

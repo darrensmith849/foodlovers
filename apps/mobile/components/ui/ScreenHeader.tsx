@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { router } from 'expo-router'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 
 interface ScreenHeaderProps {
   title: string
@@ -16,7 +16,7 @@ export function ScreenHeader({ title, subtitle, showBack, rightAction }: ScreenH
       <View style={styles.left}>
         {showBack && (
           <Pressable onPress={() => router.back()} style={styles.backBtn}>
-            <FontAwesome name="chevron-left" size={16} color={brand.grey900} />
+            <FontAwesome name="chevron-left" size={16} color={palette.textDark} />
           </Pressable>
         )}
         <View>
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
   },
   left: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   backBtn: { padding: 8, marginLeft: -8 },
-  title: { fontSize: 24, fontWeight: '700', color: brand.grey900, letterSpacing: -0.3 },
-  subtitle: { fontSize: 13, color: brand.grey500, marginBottom: 1 },
+  title: { fontSize: 22, fontWeight: '700', color: palette.textDark, letterSpacing: -0.3 },
+  subtitle: { fontSize: 12, color: palette.textSecondary, marginBottom: 1 },
 })

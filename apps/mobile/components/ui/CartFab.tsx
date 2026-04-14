@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { router } from 'expo-router'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { useCartStore } from '@/stores/useCartStore'
 import { formatPrice } from '@/hooks/useFormatPrice'
 
@@ -15,13 +15,13 @@ export function CartFab() {
 
   return (
     <Pressable style={styles.fab} onPress={() => router.push('/cart')}>
-      <FontAwesome name="shopping-cart" size={18} color={brand.white} />
+      <FontAwesome name="shopping-cart" size={16} color={palette.blackFig} />
       <View style={styles.info}>
         <Text style={styles.count}>{itemCount} items</Text>
         <Text style={styles.total}>{formatPrice(breakdown.total)}</Text>
       </View>
       <View style={styles.arrow}>
-        <FontAwesome name="chevron-right" size={14} color={brand.white} />
+        <FontAwesome name="arrow-right" size={14} color={palette.blackFig} />
       </View>
     </Pressable>
   )
@@ -30,23 +30,23 @@ export function CartFab() {
 const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
-    bottom: 90,
+    bottom: 74,
     left: 20,
     right: 20,
-    backgroundColor: brand.green,
-    borderRadius: 16,
+    backgroundColor: palette.yuzuLime,
+    borderRadius: 18,
     paddingHorizontal: 20,
     paddingVertical: 14,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: palette.blackFig,
+    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 8,
+    shadowRadius: 16,
+    elevation: 10,
   },
   info: { flex: 1, marginLeft: 12 },
-  count: { fontSize: 12, color: 'rgba(255,255,255,0.8)' },
-  total: { fontSize: 18, fontWeight: '700', color: brand.white },
+  count: { fontSize: 11, color: palette.blackFig + '90' },
+  total: { fontSize: 18, fontWeight: '800', color: palette.blackFig },
   arrow: { padding: 4 },
 })

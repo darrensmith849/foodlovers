@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { formatPrice } from '@/hooks/useFormatPrice'
 import { useUserStore } from '@/stores/useUserStore'
 import { useBudgetStore } from '@/stores/useBudgetStore'
@@ -24,7 +24,7 @@ export function BudgetSummaryCard() {
             styles.barFill,
             {
               width: `${Math.min(100, utilisation)}%`,
-              backgroundColor: utilisation > 80 ? brand.red : brand.green,
+              backgroundColor: utilisation > 80 ? palette.warning : palette.yuzuLime,
             },
           ]}
         />
@@ -38,12 +38,16 @@ export function BudgetSummaryCard() {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: brand.grey900, borderRadius: 16, padding: 20 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 },
-  label: { fontSize: 14, color: brand.grey400, fontWeight: '500' },
-  amounts: { fontSize: 14, color: brand.grey300 },
-  barTrack: { height: 8, backgroundColor: brand.grey700, borderRadius: 4, marginBottom: 10, overflow: 'hidden' },
-  barFill: { height: 8, borderRadius: 4 },
-  remaining: { fontSize: 20, fontWeight: '700', color: brand.white },
-  hint: { fontSize: 12, color: brand.grey400, marginTop: 6 },
+  card: {
+    backgroundColor: palette.deepAubergine,
+    borderRadius: 20,
+    padding: 22,
+  },
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 },
+  label: { fontSize: 13, color: palette.textMuted, fontWeight: '500', letterSpacing: 0.3 },
+  amounts: { fontSize: 13, color: palette.textMuted },
+  barTrack: { height: 6, backgroundColor: palette.blackFig, borderRadius: 3, marginBottom: 12, overflow: 'hidden' },
+  barFill: { height: 6, borderRadius: 3 },
+  remaining: { fontSize: 22, fontWeight: '700', color: palette.textPrimary },
+  hint: { fontSize: 12, color: palette.textMuted, marginTop: 6 },
 })
