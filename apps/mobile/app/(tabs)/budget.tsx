@@ -1,8 +1,8 @@
-import { StyleSheet, ScrollView, View, Text, Pressable } from 'react-native'
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router'
 import { BUDGET_CATEGORIES } from '@foodlovers/mock-data'
-import { brand } from '@/constants/Colors'
+import { palette } from '@/constants/Colors'
 import { formatPrice } from '@/hooks/useFormatPrice'
 import { useUserStore } from '@/stores/useUserStore'
 import { useBudgetStore } from '@/stores/useBudgetStore'
@@ -42,10 +42,10 @@ export default function BudgetScreen() {
             <View style={styles.overviewDivider} />
             <Stat label="Budget" value={formatPrice(monthlyBudget)} />
             <View style={styles.overviewDivider} />
-            <Stat label="Left" value={formatPrice(remaining)} valueColor={remaining > 0 ? brand.green : brand.red} />
+            <Stat label="Left" value={formatPrice(remaining)} valueColor={remaining > 0 ? palette.leafTeal : palette.warning} />
           </View>
           <View style={styles.barTrack}>
-            <View style={[styles.barFill, { width: `${Math.min(100, utilisation)}%`, backgroundColor: utilisation > 80 ? brand.red : brand.green }]} />
+            <View style={[styles.barFill, { width: `${Math.min(100, utilisation)}%`, backgroundColor: utilisation > 80 ? palette.warning : palette.yuzuLime }]} />
           </View>
           <Text style={styles.barLabel}>{utilisation}% used</Text>
         </View>
@@ -53,7 +53,7 @@ export default function BudgetScreen() {
         <Text style={styles.sectionTitle}>Spend by Category</Text>
         <View style={styles.categoryList}>
           {sortedCategories.map(({ id, amount, cat, pct }) => (
-            <Pressable key={id} style={styles.catItem} onPress={() => router.push(`/budget-detail/${id}`)}>
+            <TouchableOpacity key={id} style={styles.catItem} onPress={() => router.push(`/budget-detail/${id}`)} activeOpacity={0.7}>
               <View style={styles.catHeader}>
                 <View style={[styles.catDot, { backgroundColor: cat!.color }]} />
                 <Text style={styles.catName}>{cat!.name}</Text>
@@ -63,7 +63,7 @@ export default function BudgetScreen() {
               <View style={styles.catBarTrack}>
                 <View style={[styles.catBarFill, { width: `${pct}%`, backgroundColor: cat!.color }]} />
               </View>
-            </Pressable>
+            </TouchableOpacity>
           ))}
         </View>
 
@@ -98,28 +98,28 @@ function Stat({ label, value, valueColor }: { label: string; value: string; valu
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: brand.white },
+  container: { flex: 1, backgroundColor: palette.oatCream },
   scroll: { paddingHorizontal: 20 },
-  title: { fontSize: 28, fontWeight: '700', color: brand.grey900, paddingTop: 12, letterSpacing: -0.5 },
-  subtitle: { fontSize: 14, color: brand.grey500, marginBottom: 20 },
-  overviewCard: { backgroundColor: brand.grey900, borderRadius: 16, padding: 20, marginBottom: 28 },
+  title: { fontSize: 26, fontWeight: '800', color: palette.textDark, paddingTop: 12, letterSpacing: -0.5 },
+  subtitle: { fontSize: 13, color: palette.textSecondary, marginBottom: 20 },
+  overviewCard: { backgroundColor: palette.deepAubergine, borderRadius: 20, padding: 20, marginBottom: 24 },
   overviewRow: { flexDirection: 'row', marginBottom: 16 },
-  overviewDivider: { width: 1, backgroundColor: brand.grey700 },
+  overviewDivider: { width: 1, backgroundColor: palette.blackFig },
   statItem: { flex: 1, alignItems: 'center' },
-  statLabel: { fontSize: 12, color: brand.grey400, marginBottom: 4 },
-  statValue: { fontSize: 18, fontWeight: '700', color: brand.white },
-  barTrack: { height: 8, backgroundColor: brand.grey700, borderRadius: 4, overflow: 'hidden', marginBottom: 8 },
-  barFill: { height: 8, borderRadius: 4 },
-  barLabel: { fontSize: 12, color: brand.grey400, textAlign: 'right' },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: brand.grey900, marginBottom: 14 },
-  categoryList: { marginBottom: 28 },
+  statLabel: { fontSize: 10, color: palette.textMuted, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 },
+  statValue: { fontSize: 18, fontWeight: '700', color: palette.textPrimary },
+  barTrack: { height: 5, backgroundColor: palette.blackFig, borderRadius: 3, overflow: 'hidden', marginBottom: 8 },
+  barFill: { height: 5, borderRadius: 3 },
+  barLabel: { fontSize: 11, color: palette.textMuted, textAlign: 'right' },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: palette.textDark, marginBottom: 14 },
+  categoryList: { marginBottom: 24 },
   catItem: { marginBottom: 14 },
   catHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
   catDot: { width: 10, height: 10, borderRadius: 5, marginRight: 8 },
-  catName: { flex: 1, fontSize: 14, color: brand.grey700 },
-  catPct: { fontSize: 14, color: brand.grey400, marginRight: 12 },
-  catAmount: { fontSize: 14, fontWeight: '600', color: brand.grey900, minWidth: 64, textAlign: 'right' },
-  catBarTrack: { height: 6, backgroundColor: brand.grey100, borderRadius: 3, overflow: 'hidden' },
-  catBarFill: { height: 6, borderRadius: 3 },
-  card: { backgroundColor: brand.grey50, borderRadius: 14, padding: 16, borderWidth: 1, borderColor: brand.grey200, marginBottom: 20 },
+  catName: { flex: 1, fontSize: 14, color: palette.textDark },
+  catPct: { fontSize: 14, color: palette.textSecondary, marginRight: 12 },
+  catAmount: { fontSize: 14, fontWeight: '600', color: palette.textDark, minWidth: 64, textAlign: 'right' },
+  catBarTrack: { height: 5, backgroundColor: palette.borderSubtle, borderRadius: 3, overflow: 'hidden' },
+  catBarFill: { height: 5, borderRadius: 3 },
+  card: { backgroundColor: palette.surfaceCard, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: palette.border, marginBottom: 20 },
 })
