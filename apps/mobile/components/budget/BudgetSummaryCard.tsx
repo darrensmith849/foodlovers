@@ -30,6 +30,9 @@ export function BudgetSummaryCard() {
         />
       </View>
       <Text style={styles.remaining}>{formatPrice(remaining)} remaining</Text>
+      <Text style={styles.hint}>
+        {utilisation < 50 ? 'On track this month' : utilisation < 80 ? 'Halfway through your budget' : 'Getting close to your limit'}
+      </Text>
     </View>
   )
 }
@@ -42,4 +45,5 @@ const styles = StyleSheet.create({
   barTrack: { height: 8, backgroundColor: brand.grey700, borderRadius: 4, marginBottom: 10, overflow: 'hidden' },
   barFill: { height: 8, borderRadius: 4 },
   remaining: { fontSize: 20, fontWeight: '700', color: brand.white },
+  hint: { fontSize: 12, color: brand.grey400, marginTop: 6 },
 })

@@ -54,9 +54,13 @@ export default function ProductDetailScreen() {
         </View>
 
         <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>Budget Impact</Text>
+          <Text style={styles.infoTitle}>Smart Budget Info</Text>
           <Text style={styles.infoText}>
-            This product is classified as <Text style={{ fontWeight: '700', color: tierColor }}>{tierLabel.toLowerCase()}</Text> in the <Text style={{ fontWeight: '600' }}>{budgetCat?.name}</Text> category.
+            {product.essentialityTier === 'ESSENTIAL'
+              ? `This is a household staple in ${budgetCat?.name}. Good pick for staying within budget.`
+              : product.essentialityTier === 'SEMI_ESSENTIAL'
+                ? `A solid choice in ${budgetCat?.name}. Not essential, but a reasonable add.`
+                : `This is a treat in ${budgetCat?.name}. Nothing wrong with that \u2014 just keep an eye on the balance.`}
           </Text>
         </View>
       </ScrollView>

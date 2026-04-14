@@ -22,7 +22,7 @@ export function generateWarnings(input: GenerateWarningsInput): BudgetWarning[] 
     const overAmount = Math.abs(breakdown.budgetRemaining)
     warnings.push({
       type: 'OVER_MONTHLY_BUDGET',
-      message: `This cart puts you ${overAmount} over your monthly budget`,
+      message: `Heads up — this cart takes you ${overAmount} past your monthly budget`,
       severity: 'warning',
     })
   }
@@ -30,7 +30,7 @@ export function generateWarnings(input: GenerateWarningsInput): BudgetWarning[] 
   if (breakdown.discretionaryPercentage > DISCRETIONARY_HIGH_THRESHOLD) {
     warnings.push({
       type: 'HIGH_DISCRETIONARY',
-      message: `${breakdown.discretionaryPercentage}% of this cart is discretionary items`,
+      message: `${breakdown.discretionaryPercentage}% of this basket is treats — maybe swap one or two for staples?`,
       severity: 'caution',
     })
   }
@@ -39,7 +39,7 @@ export function generateWarnings(input: GenerateWarningsInput): BudgetWarning[] 
     if (cat.percentage > CATEGORY_DOMINANT_THRESHOLD) {
       warnings.push({
         type: 'SINGLE_CATEGORY_DOMINANT',
-        message: `${cat.budgetCategoryName} is ${cat.percentage}% of your basket`,
+        message: `${cat.budgetCategoryName} makes up ${cat.percentage}% of this basket`,
         severity: 'caution',
         categoryId: cat.budgetCategoryId,
       })
@@ -56,7 +56,7 @@ export function generateWarnings(input: GenerateWarningsInput): BudgetWarning[] 
       if (historicalAvg !== null && cat.percentage > historicalAvg + CATEGORY_SPIKE_THRESHOLD) {
         warnings.push({
           type: 'CATEGORY_SPIKE',
-          message: `You're spending ${cat.percentage}% on ${cat.budgetCategoryName} — up from ${historicalAvg}% average`,
+          message: `${cat.budgetCategoryName} is at ${cat.percentage}% — up from your usual ${historicalAvg}%`,
           severity: 'caution',
           categoryId: cat.budgetCategoryId,
         })
@@ -71,7 +71,7 @@ export function generateWarnings(input: GenerateWarningsInput): BudgetWarning[] 
   ) {
     warnings.push({
       type: 'BUDGET_ON_TRACK',
-      message: `Great — ${breakdown.essentialPercentage}% essentials this month`,
+      message: `Nice — ${breakdown.essentialPercentage}% of this basket is essentials. Smart shopping.`,
       severity: 'info',
     })
   }

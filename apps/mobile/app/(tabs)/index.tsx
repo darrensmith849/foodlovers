@@ -6,6 +6,7 @@ import { PRODUCTS, BUDGET_CATEGORIES } from '@foodlovers/mock-data'
 import { brand } from '@/constants/Colors'
 import { useMemo } from 'react'
 import { useCartStore } from '@/stores/useCartStore'
+import { useUserStore } from '@/stores/useUserStore'
 import { BudgetSummaryCard } from '@/components/budget/BudgetSummaryCard'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { CartFab } from '@/components/ui/CartFab'
@@ -13,8 +14,16 @@ import { InsightCard } from '@/components/budget/InsightCard'
 
 const ZA_PRODUCTS = PRODUCTS.filter((p) => p.market === 'ZA')
 
+function getGreeting(): string {
+  const h = new Date().getHours()
+  if (h < 12) return 'Good morning'
+  if (h < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
 export default function ShopScreen() {
   const items = useCartStore((s) => s.items)
+  const name = useUserStore((s) => s.name)
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
   const warnings = useMemo(() => useCartStore.getState().getWarnings(), [items])
 
@@ -23,12 +32,14 @@ export default function ShopScreen() {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Good afternoon</Text>
+            <Text style={styles.greeting}>{getGreeting()}, {name}</Text>
             <Text style={styles.headerTitle}>FoodLovers</Text>
           </View>
-          <Pressable style={styles.cartBadge} onPress={() => router.push('/cart')}>
-            <Text style={styles.cartBadgeText}>🛒 {itemCount}</Text>
-          </Pressable>
+          {itemCount > 0 && (
+            <Pressable style={styles.cartBadge} onPress={() => router.push('/cart')}>
+              <Text style={styles.cartBadgeText}>🛒 {itemCount}</Text>
+            </Pressable>
+          )}
         </View>
 
         <View style={styles.section}>

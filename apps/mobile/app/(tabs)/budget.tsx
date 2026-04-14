@@ -73,13 +73,13 @@ export default function BudgetScreen() {
         </View>
 
         {utilisation < 80 && (
-          <InsightCard warning={{ type: 'BUDGET_ON_TRACK', message: `You've used ${utilisation}% of your monthly grocery budget. You're on track.`, severity: 'info' }} />
+          <InsightCard warning={{ type: 'BUDGET_ON_TRACK', message: `${utilisation}% of your budget used. Looking good \u2014 you have room for the rest of the month.`, severity: 'info' }} />
         )}
         {utilisation >= 80 && utilisation < 100 && (
-          <InsightCard warning={{ type: 'OVER_MONTHLY_BUDGET', message: `You've used ${utilisation}% of your budget. Consider reducing discretionary items.`, severity: 'caution' }} />
+          <InsightCard warning={{ type: 'OVER_MONTHLY_BUDGET', message: `${utilisation}% of your budget used. You're getting close \u2014 maybe prioritise essentials for the remaining shops.`, severity: 'caution' }} />
         )}
         {discretionaryPct > 30 && (
-          <InsightCard warning={{ type: 'HIGH_DISCRETIONARY', message: `${discretionaryPct}% of your spend is on treats. Try swapping some for essentials.`, severity: 'caution' }} />
+          <InsightCard warning={{ type: 'HIGH_DISCRETIONARY', message: `${discretionaryPct}% of your spend is treats. That's fine occasionally \u2014 just worth noticing.`, severity: 'caution' }} />
         )}
 
         <View style={{ height: 40 }} />
