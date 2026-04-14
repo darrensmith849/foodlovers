@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   addressLine: { fontSize: 15, fontWeight: '600', color: brand.grey900 },
   addressCity: { fontSize: 13, color: brand.grey500, marginTop: 2 },
   summaryLine: { fontSize: 15, fontWeight: '600', color: brand.grey900 },
-  impactText: { fontSize: 14, color: brand.grey600, lineHeight: 20 },
+  impactText: { fontSize: 14, color: brand.grey500, lineHeight: 20 },
   overText: { fontSize: 13, color: brand.red, marginTop: 8, fontWeight: '500' },
   paymentText: { fontSize: 15, color: brand.grey700 },
   bottom: { paddingHorizontal: 20, paddingBottom: 20, paddingTop: 12, borderTopWidth: 1, borderTopColor: brand.grey200 },
